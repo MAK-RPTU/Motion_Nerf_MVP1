@@ -112,3 +112,18 @@ sudo apt install -y ffmpeg colmap python3 python3-pip
 
 ./video_to_gsplat.sh 60 /home/ubuntu/Motion_Nerf_MVP1/data /home/ubuntu/Motion_3DGS_MVP1/output /home/ubuntu/Motion_3DGS_MVP1/output_gsplat
 
+
+
+
+************************************************************
+****************3d Grut
+************************************************************
+
+Reference for Dataset Preparation and Training:
+
+https://www.youtube.com/watch?v=FI5JluMoBDE
+
+https://github.com/nv-tlabs/3dgrut?tab=readme-ov-file
+
+python train.py --config-name apps/colmap_3dgut.yaml path=/home/ubuntu/Motion_3D_Grut/data/kitchen out_dir=runs experiment_name=kitchen_test1 dataset.downsample_factor=2 with_gui=True export_usdz.enabled=true 
+
