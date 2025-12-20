@@ -119,11 +119,66 @@ sudo apt install -y ffmpeg colmap python3 python3-pip
 ****************3d Grut
 ************************************************************
 
-Reference for Dataset Preparation and Training:
-
-https://www.youtube.com/watch?v=FI5JluMoBDE
-
-https://github.com/nv-tlabs/3dgrut?tab=readme-ov-file
-
 python train.py --config-name apps/colmap_3dgut.yaml path=/home/ubuntu/Motion_3D_Grut/data/kitchen out_dir=runs experiment_name=kitchen_test1 dataset.downsample_factor=2 with_gui=True export_usdz.enabled=true 
+
+
+
+************************************************************
+****************ISAACSIM ROS2
+************************************************************
+
+export isaac_sim_package_path=$HOME/isaac-sim/isaac-sim-standalone-5.1.0-linux-x86_64
+
+export ROS_DISTRO=humble
+
+export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$isaac_sim_package_path/exts/isaacsim.ros2.bridge/humble/lib
+
+$isaac_sim_package_path/isaac-sim.sh
+
+Before building the cloned ISaacSIm workspace install the moveit, vision_msgs and ackerman packages
+
+sudo apt install ros-humble-moveit
+
+cd /home/ubuntu/humble_ws/IsaacSim-ros_workspaces/humble_ws
+
+colcon build
+
+************************************************************
+****************Unitree Robot with Hands Assets
+************************************************************
+1. Download the fetch assets.sh file from the link below
+
+https://github.com/unitreerobotics/unitree_sim_isaaclab/blob/main/fetch_assets.sh
+
+Then install git lfs and then run the .sh file
+
+sudo apt install git-lfs
+
+. fetch_assets.sh
+
+
+************************************************************
+****************ISAACLAB
+************************************************************
+
+# Option 1: Using the isaaclab.sh executable
+# note: this works for both the bundled python and the virtual environment
+./isaaclab.sh -p scripts/tutorials/00_sim/create_empty.py
+
+# Option 2: Using python in your virtual environment
+python scripts/tutorials/00_sim/create_empty.py
+
+
+./isaaclab.sh -p scripts/reinforcement_learning/rsl_rl/train.py --task=Isaac-Ant-v0 --headless
+
+Limit the environment using --num_envs argument to run simulation faster
+
+./isaaclab.sh -p scripts/reinforcement_learning/rsl_rl/train.py --task=Isaac-Ant-v0 --num_envs=100
+
+
+./isaaclab.sh -p scripts/reinforcement_learning/rsl_rl/train.py --task=Isaac-Velocity-Rough-Anymal-C-v0 --headless
+
+./isaaclab.sh -p scripts/reinforcement_learning/rsl_rl/train.py --task=Isaac-Velocity-Rough-Anymal-C-v0 --num_envs=100
 
